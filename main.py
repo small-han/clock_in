@@ -4,17 +4,21 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
+import configparser
+import codecs
 import time
 import datetime
 import random
 
 class CLOCK_IN(object):
-    def __init__(self,qq_num,url):
+    def __init__(self):
+        cp = configparser.SafeConfigParser()
+        with codecs.open('config.txt', 'r', encoding='utf-8') as f:
+            cp.readfp(f)
+        self.url=cp.get("data","url")
+        self.qq=cp.get("data","qq_num")
+        self.name=cp.get("data","name")
         self.driver = webdriver.Chrome("chromedriver.exe")
-        self.row = 1
-        self.col = 1
-        self.qq=qq_num
-        self.url=url
 
     def Log_In(self):
         self.driver.get(self.url)
@@ -47,7 +51,7 @@ class CLOCK_IN(object):
         element.click()
     
     def Random_Number(self):
-        return str(random.randint(365,370)/10)
+        return str(random.randint(363,369)/10)
 
     def Fill_By_Name(self,name):
         elmet = self.driver.find_element_by_id('alloy-simple-text-editor')
@@ -107,11 +111,13 @@ class CLOCK_IN(object):
         elmet.send_keys(Keys.ARROW_UP)
         elmet.send_keys(Keys.ARROW_RIGHT)
 
+    def Run(self):
+        names=self.name.split()
+        for i in names:
+            self.Fill_By_Name(i)
+
 if __name__ == "__main__":
-    my_clock = CLOCK_IN("1392104628","https://docs.qq.com/sheet/DRUt0S0VnSEZKU3hV?tdsourcetag=s_pcqq_send_grpfile&ADUIN=1392104628&ADSESSION=1597489369&ADTAG=CLIENT.QQ.5749_.0&ADPUBNO=27027&tab=jiwl0l")
+    my_clock = CLOCK_IN()
     my_clock.Log_In()
     my_clock.Change_Page()
-    my_clock.Fill_By_Name("张涵")
-    my_clock.Fill_By_Name("王春磊")
-    my_clock.Fill_By_Name("朱仁贵")
-    my_clock.Fill_By_Name("蒋赟涛")
+    my_clock.Run()
