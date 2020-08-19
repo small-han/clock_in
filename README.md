@@ -7,4 +7,4 @@
 
 https://sites.google.com/a/chromium.org/chromedriver/downloads
 
-+ at last,you should open the website of tencent online chart and get its url,and copy this url to the second parameterof 111 lines in main.py.and fill your QQ number in first patameter.at last make sure every time you run this code,you need to open your QQ
++ At last ,you should change the url , qq_num ,name in config
