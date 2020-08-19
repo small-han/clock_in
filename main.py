@@ -10,6 +10,7 @@ import codecs
 import time
 import datetime
 import random
+import sys
 
 class CLOCK_IN(object):
     def __init__(self):
@@ -72,7 +73,7 @@ class CLOCK_IN(object):
         element.click()#退出查找
 
         for i in range(5):
-            time.sleep(0.4)
+            time.sleep(0.3)
             elmet.send_keys(Keys.ARROW_RIGHT)
 
         elmet.click()
@@ -119,9 +120,14 @@ class CLOCK_IN(object):
         names=self.name.split()
         for i in names:
             self.Fill_By_Name(i)
+    
+    def __del__(self):
+        self.driver.close()
 
 if __name__ == "__main__":
     my_clock = CLOCK_IN()
     my_clock.Log_In()
     my_clock.Change_Page()
     my_clock.Run()
+    del my_clock
+    sys.exit()
