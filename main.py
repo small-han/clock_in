@@ -52,6 +52,7 @@ class CLOCK_IN(object):
                 )
                 element.click()
         element.click()
+        time.sleep(3)
     
     def Random_Number(self):#生成体温随机数
         return str(random.randint(363,369)/10)
